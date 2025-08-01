@@ -1,0 +1,821 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Smrity Pharmacy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo span {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #2a7fba;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: #2a7fba;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-phone-login {
+            background: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-phone-login:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: #e8f4ff;
+            padding: 15px 5%;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: #2a7fba;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            padding: 3rem 5%;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .contact-form {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2a7fba;
+        }
+        
+        .section-header h2 {
+            color: #2a7fba;
+            font-size: 1.8rem;
+        }
+        
+        .contact-methods {
+            margin-top: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            background: #e8f4ff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2a7fba;
+            font-size: 1.2rem;
+        }
+        
+        .contact-details h3 {
+            margin-bottom: 5px;
+            color: #2a7fba;
+        }
+        
+        .contact-details p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .contact-details a {
+            color: #2a7fba;
+            text-decoration: none;
+        }
+        
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .required {
+            color: #e63946;
+        }
+        
+        .btn-submit {
+            background: #2a7fba;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-submit:hover {
+            background: #1a5f8e;
+        }
+        
+        /* Admin Panel Styles */
+        .admin-panel {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 1400px;
+            display: none;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2a7fba;
+        }
+        
+        .admin-header h2 {
+            color: #2a7fba;
+            font-size: 1.8rem;
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .admin-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .btn-refresh {
+            background: #2a7fba;
+            color: white;
+        }
+        
+        .btn-toggle {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-clear {
+            background: #e63946;
+            color: white;
+        }
+        
+        .submissions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .submissions-table th, 
+        .submissions-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .submissions-table th {
+            background-color: #e8f4ff;
+            color: #2a7fba;
+            font-weight: 600;
+        }
+        
+        .submissions-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .no-submissions {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+        
+        /* Locations Section */
+        .locations {
+            padding: 3rem 5%;
+            background: #e8f4ff;
+        }
+        
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 2rem;
+        }
+        
+        .location-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .location-header {
+            background: #2a7fba;
+            color: white;
+            padding: 20px;
+        }
+        
+        .location-body {
+            padding: 25px;
+        }
+        
+        .location-body p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .location-body i {
+            color: #2a7fba;
+            min-width: 20px;
+        }
+        
+        .map-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2a7fba;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .map-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2a7fba;
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .submissions-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin: 1rem 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMyYTdmYmEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgM2ExMCAxMCAwIDAgMSA3IDE3SDUiLz48cGF0aCBkPSJNMTIgM2ExMCAxMCAwIDAgMCA3IDE3SDUiLz48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI3Ii8+PHBhdGggZD0iTTkgMTJoNiIvPjwvc3ZnPg==" alt="Pharmacy Icon">
+            <span>Smrity Pharmacy</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About Us</a>
+            <a href="offers.html">offers</a>
+            <a href="contact.html" class="active">Contact</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-phone-login">
+                <i class="fas fa-phone-alt"></i> Member Login
+            </a>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> &gt; <a href="contact.html">Contact</a> &gt; Send Us Enquiry
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-container">
+        <div class="contact-info">
+            <div class="section-header">
+                <h2>Contact</h2>
+            </div>
+            
+            <div class="contact-methods">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Our Distribution Network</h3>
+                        <p>For any enquiry, please call us</p>
+                        <p><strong>096-78 300 300</strong></p>
+                        <a href="mailto:enquiry@smritypharmacy.com">enquiry@smritypharmacy.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Adverse Event Reporting</h3>
+                        <p>Report any adverse event related to our products</p>
+                        <p><strong>0800-123-4567</strong></p>
+                        <a href="mailto:safety@smritypharmacy.com">safety@smritypharmacy.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Career Opportunities</h3>
+                        <p>Join our professional healthcare team</p>
+                        <p><strong>096-78 500 500</strong></p>
+                        <a href="mailto:careers@smritypharmacy.com">careers@smritypharmacy.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-form">
+            <div class="section-header">
+                <h2>Send Us Enquiry</h2>
+            </div>
+            
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="department">Contact Department <span class="required">*</span></label>
+                    <select id="department" required>
+                        <option value="">Select a department</option>
+                        <option value="sales">Sales & Distribution</option>
+                        <option value="support">Customer Support</option>
+                        <option value="medical">Medical Information</option>
+                        <option value="careers">Career Opportunities</option>
+                        <option value="quality">Quality Assurance</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name <span class="required">*</span></label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail <span class="required">*</span></label>
+                        <input type="email" id="email" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone <span class="required">*</span></label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject <span class="required">*</span></label>
+                        <input type="text" id="subject" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="comments">Your Comments <span class="required">*</span></label>
+                    <textarea id="comments" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> Send Enquiry
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Admin Panel for Viewing Submissions -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h2>Contact Form Submissions</h2>
+            <div class="admin-controls">
+                <button class="admin-btn btn-toggle" id="toggleBtn">
+                    <i class="fas fa-eye"></i> Hide Submissions
+                </button>
+                <button class="admin-btn btn-refresh" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button class="admin-btn btn-clear" id="clearBtn">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </div>
+        </div>
+        
+        <div id="submissionsContainer">
+            <table class="submissions-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Department</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Subject</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody id="submissionsTableBody">
+                    <!-- Submissions will be added here by JavaScript -->
+                </tbody>
+            </table>
+            <div id="noSubmissions" class="no-submissions">
+                <i class="fas fa-inbox"></i>
+                <h3>No submissions yet</h3>
+                <p>All contact form submissions will appear here</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Locations Section -->
+    <section class="locations">
+        <div class="section-header" style="text-align: center;">
+            <h2>Our Locations</h2>
+        </div>
+        
+        <div class="location-grid">
+            <div class="location-card">
+                <div class="location-header">
+                    <h3>Head Office</h3>
+                </div>
+                <div class="location-body">
+                    <p><i class="fas fa-map-marker-alt"></i> 40 Shatabdi Center, Ahmed Nagar<br>Tangail, Dhaka-1308, Bangladesh</p>
+                    <p><i class="fas fa-phone"></i> (+88 00) 891468 - 703</p>
+                    <p><i class="fas fa-fax"></i> (+88 00) 8911100</p>
+                    <a href="#" class="map-link"><i class="fas fa-map-marked-alt"></i> Find us on Google Map</a>
+                </div>
+            </div>
+            
+            <div class="location-card">
+                <div class="location-header">
+                    <h3>Factory (Zirabo Unit)</h3>
+                </div>
+                <div class="location-body">
+                    <p><i class="fas fa-map-marker-alt"></i> Dawa Industrial Road, Zirabo,<br>Ashulia, Dhaka, Bangladesh</p>
+                    <p><i class="fas fa-phone"></i> (+88 00) 2874034-30-4</p>
+                    <a href="#" class="map-link"><i class="fas fa-map-marked-alt"></i> Find us on Google Map</a>
+                </div>
+            </div>
+            
+            <div class="location-card">
+                <div class="location-header">
+                    <h3>Factory (Dhamrai Unit)</h3>
+                </div>
+                <div class="location-body">
+                    <p><i class="fas fa-map-marker-alt"></i> Krishipara, Shyampur,<br>Dhamrai, Dhaka, Bangladesh</p>
+                    <p><i class="fas fa-phone"></i> +800/600222777</p>
+                    <a href="#" class="map-link"><i class="fas fa-map-marked-alt"></i> Find us on Google Map</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Smrity Pharmacy</div>
+            <p>Your trusted partner for quality medicines and healthcare solutions</p>
+            
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="#">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Smrity Pharmacy. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            const requiredFields = document.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#e63946';
+                } else {
+                    field.style.borderColor = '#ddd';
+                }
+            });
+            
+            if (isValid) {
+                // Create form data object
+                const formData = {
+                    department: document.getElementById('department').value,
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    subject: document.getElementById('subject').value,
+                    comments: document.getElementById('comments').value,
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Retrieve existing submissions from localStorage or initialize empty array
+                const existingSubmissions = JSON.parse(localStorage.getItem('contactSubmissions')) || [];
+                
+                // Add new submission
+                existingSubmissions.push(formData);
+                
+                // Save back to localStorage
+                localStorage.setItem('contactSubmissions', JSON.stringify(existingSubmissions));
+                
+                alert('Thank you! Your enquiry has been submitted successfully.');
+                this.reset();
+                
+                // Show the admin panel
+                document.getElementById('adminPanel').style.display = 'block';
+                
+                // Refresh the submissions table
+                refreshSubmissions();
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+        
+        // Reset field borders on input
+        document.querySelectorAll('input, textarea, select').forEach(field => {
+            field.addEventListener('input', function() {
+                this.style.borderColor = '#ddd';
+            });
+        });
+        
+        // Admin Panel Functions
+        function refreshSubmissions() {
+            const submissions = JSON.parse(localStorage.getItem('contactSubmissions')) || [];
+            const tableBody = document.getElementById('submissionsTableBody');
+            const noSubmissions = document.getElementById('noSubmissions');
+            
+            // Clear table
+            tableBody.innerHTML = '';
+            
+            if (submissions.length === 0) {
+                noSubmissions.style.display = 'block';
+            } else {
+                noSubmissions.style.display = 'none';
+                
+                // Add submissions to table
+                submissions.forEach((submission, index) => {
+                    const row = document.createElement('tr');
+                    const date = new Date(submission.timestamp);
+                    
+                    row.innerHTML = `
+                        <td>${date.toLocaleString()}</td>
+                        <td>${submission.department}</td>
+                        <td>${submission.name}</td>
+                        <td>${submission.email}</td>
+                        <td>${submission.phone}</td>
+                        <td>${submission.subject}</td>
+                        <td>${submission.comments}</td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+        
+        function clearSubmissions() {
+            if (confirm('Are you sure you want to delete all enquiry data? This cannot be undone.')) {
+                localStorage.removeItem('contactSubmissions');
+                refreshSubmissions();
+                alert('All enquiry data has been cleared.');
+            }
+        }
+        
+        function toggleSubmissions() {
+            const container = document.getElementById('submissionsContainer');
+            const toggleBtn = document.getElementById('toggleBtn');
+            
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+                toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Hide Submissions';
+            } else {
+                container.style.display = 'none';
+                toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Show Submissions';
+            }
+        }
+        
+        // Event listeners for admin buttons
+        document.getElementById('refreshBtn').addEventListener('click', refreshSubmissions);
+        document.getElementById('clearBtn').addEventListener('click', clearSubmissions);
+        document.getElementById('toggleBtn').addEventListener('click', toggleSubmissions);
+        
+        // Show admin panel if submissions exist
+        window.addEventListener('DOMContentLoaded', () => {
+            const submissions = JSON.parse(localStorage.getItem('contactSubmissions')) || [];
+            if (submissions.length > 0) {
+                document.getElementById('adminPanel').style.display = 'block';
+                refreshSubmissions();
+            }
+        });
+    </script>
+</body>
+</html>

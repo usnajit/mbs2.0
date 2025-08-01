@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smrity Pharmacy - Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a7fba;
+            --secondary: #1a5f8e;
+            --accent: #e63946;
+            --text: #333;
+            --light-text: #666;
+            --background: #f5f7fa;
+            --card-bg: #ffffff;
+            --border: #ddd;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --primary: #3a86ff;
+            --secondary: #212529;
+            --accent: #ff006e;
+            --text: #f8f9fa;
+            --light-text: #adb5bd;
+            --background: #121212;
+            --card-bg: #1e1e1e;
+            --border: #444;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo span {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-phone-login {
+            background: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-phone-login:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        #darkModeSwitch {
+            display: none;
+        }
+        
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--text);
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .toggle-label i.fa-sun {
+            display: none;
+        }
+        
+        .dark-mode .toggle-label i.fa-moon {
+            display: none;
+        }
+        
+        .dark-mode .toggle-label i.fa-sun {
+            display: inline;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: #e8f4ff;
+            padding: 15px 5%;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Search Section */
+        .search-section {
+            padding: 3rem 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .search-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .search-bar {
+            display: flex;
+            max-width: 700px;
+            margin: 0 auto;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: #c1121f;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 2rem 5%;
+            background: var(--background);
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+            color: var(--light-text);
+        }
+        
+        /* Products Section */
+        .products-container {
+            display: flex;
+            padding: 3rem 5%;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .categories-sidebar {
+            flex: 0 0 250px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            align-self: flex-start;
+        }
+        
+        .categories-sidebar h3 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .category-list {
+            list-style: none;
+        }
+        
+        .category-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-item:hover, .category-item.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .category-item i {
+            margin-right: 10px;
+        }
+        
+        .products-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            background: #f0f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            max-height: 160px;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .product-generic {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 10px;
+        }
+        
+        .product-description {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .product-manufacturer {
+            color: var(--primary);
+        }
+        
+        .product-stock {
+            color: #4CAF50;
+        }
+        
+        .product-stock.out {
+            color: var(--accent);
+        }
+        
+        .product-price {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn-add-to-cart {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-add-to-cart:hover {
+            background: var(--secondary);
+        }
+        
+        .btn-view-details {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 9px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-view-details:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            padding: 0 5%;
+        }
+        
+        .pagination button {
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .pagination button.active, .pagination button:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Search results styles */
+        .search-results-count {
+            padding: 10px 0;
+            color: var(--light-text);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .no-results p {
+            color: var(--light-text);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .products-container {
+                flex-direction: column;
+            }
+            
+            .categories-sidebar {
+                flex: 0 0 auto;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin: 1rem 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Shopping Cart Styles */
+        .shopping-cart-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .shopping-cart-container.active {
+            transform: translateY(0);
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .cart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .cart-items {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .cart-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-cart {
+            flex: 1;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-cancel {
+            background: #e0e0e0;
+            color: #333;
+            border: none;
+        }
+        
+        .btn-send {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-cancel:hover {
+            background: #d0d0d0;
+        }
+        
+        .btn-send:hover {
+            background: var(--secondary);
+        }
+        
+        .cart-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 99;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .order-confirmation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .order-confirmation.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .confirmation-content {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .confirmation-content h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 20px;
+            color: var(--light-text);
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark Mode Banner -->
+    <div class="dark-mode-banner">
+        <p>🌙 Eclipse your screen with our dark mode</p>
+        <a id="tryDarkMode">Try it now →</a>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMyYTdmYmEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgM2ExMCAxMCAwIDAgMSA3IDE3SDUiLz48cGF0aCBkPSJNMTIgM2ExMCAxMCAwIDAgMCA3IDE3SDUiLz48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI3Ii8+PHBhdGggZD0iTTkgMTJoNiIvPjwvc3ZnPg==" alt="Pharmacy Icon">
+            <span>Smrity Pharmacy</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html" class="active">Products</a>
+            <a href="offers.html">Offers</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="auth-buttons">
+            <div class="dark-mode-toggle">
+                <input type="checkbox" id="darkModeSwitch">
+                <label for="darkModeSwitch" class="toggle-label">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <span class="toggle-text">Dark Mode</span>
+                </label>
+            </div>
+            <a href="login.html" class="btn-phone-login">
+                <i class="fas fa-phone-alt"></i> Member Login
+            </a>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> &gt; <a href="products.html">Products</a>
+    </div>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <h1>Find Your Medicines</h1>
+            <p>Search by brand name, generic name, or health condition</p>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for medicines...">
+                <button id="searchButton"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">26000+</div>
+                <div class="stat-text">BRAND PRODUCTS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1350+</div>
+                <div class="stat-text">GENERICS (ALLOPATHIC)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">250+</div>
+                <div class="stat-text">GENERICS (HERBAL)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">260+</div>
+                <div class="stat-text">PHARMACEUTICALS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-container">
+        <div class="categories-sidebar">
+            <h3>Product Categories</h3>
+            <ul class="category-list">
+                <li class="category-item active" data-category="all"><i class="fas fa-capsules"></i> All Medicines</li>
+                <li class="category-item" data-category="heart"><i class="fas fa-heartbeat"></i> Heart & Blood Pressure</li>
+                <li class="category-item" data-category="neuro"><i class="fas fa-brain"></i> Neurological</li>
+                <li class="category-item" data-category="asthma"><i class="fas fa-allergies"></i> Allergy & Asthma</li>
+                <li class="category-item" data-category="pain"><i class="fas fa-pills"></i> Pain Relief</li>
+                <li class="category-item" data-category="diabetes"><i class="fas fa-candy-cane"></i> Diabetes</li>
+                <li class="category-item" data-category="stomach"><i class="fas fa-stomach"></i> Stomach & Digestion</li>
+                <li class="category-item" data-category="herbal"><i class="fas fa-leaf"></i> Herbal & Ayurvedic</li>
+                <li class="category-item" data-category="baby"><i class="fas fa-baby"></i> Baby Care</li>
+                <li class="category-item" data-category="firstaid"><i class="fas fa-first-aid"></i> First Aid</li>
+            </ul>
+        </div>
+        
+        <div class="products-grid" id="productsGrid">
+            <!-- Results count will be displayed here -->
+            <div class="search-results-count" id="resultsCount">Showing 14 products</div>
+            
+            <!-- Products -->
+            <div class="product-card" data-category="heart">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1599458252573-56ae36120de1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medicine">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Vonocab Tablet</h3>
+                    <div class="product-generic">Vonoopatano 11mg</div>
+                    <p class="product-description">For hypertension management and blood pressure control</p>
+                    <div class="product-meta">
+                        <span class="product-manufacturer">Square Pharma</span>
+                        <span class="product-stock">In Stock</span>
+                    </div>
+                    <div class="product-price">৳120</div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add
+                        </button>
+                        <button class="btn-view-details">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="neuro">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medicine">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Emijoy DS Tablet</h3>
+                    <div class="product-generic">Chlorobasepoxide 10mg</div>
+                    <p class="product-description">For anxiety relief and stress management</p>
+                    <div class="product-meta">
+                        <span class="product-manufacturer">Beximco</span>
+                        <span class="product-stock">In Stock</span>
+                    </div>
+                    <div class="product-price">৳85</div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add
+                        </button>
+                        <button class="btn-view-details">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="diabetes">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medicine">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Jardimet XR Tablet</h3>
+                    <div class="product-generic">Energization 5mg</div>
+                    <p class="product-description">For diabetes control and blood sugar management</p>
+                    <div class="product-meta">
+                        <span class="product-manufacturer">Incepta</span>
+                        <span class="product-stock">In Stock</span>
+                    </div>
+                    <div class="product-price">৳95</div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add
+                        </button>
+                        <button class="btn-view-details">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="asthma">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1631549916768-411a8c1b9a9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medicine">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Azmasol Plus HFA</h3>
+                    <div class="product-generic">Salbutamol 100mcg</div>
+                    <p class="product-description">For asthma and respiratory conditions</p>
+                    <div class="product-meta">
+                        <span class="product-manufacturer">ACI Pharma</span>
+                        <span class="product-stock out">Low Stock</span>
+                    </div>
+                    <div class="product-price">৳150</div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add
+                        </button>
+                        <button class="btn-view-details">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="pain">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medicine">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Napa Extra</h3>
+                    <div class="product-generic">Paracetamol 500mg</div>
+                    <p class="product-description">For fever, headache, and mild pain relief</p>
+                    <div class="product-meta">
+                        <span class="product-manufacturer">Beximco</span>
+                        <span class="product-stock">In Stock</span>
+                    </div>
+                    <div class="product-price">৳40</div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add
+                        </button>
+                        <button class="btn-view-details">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="stomach">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1599458252573-56ae36120de1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medicine">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Seclo 20</h3>
+                    <div class="product-generic">Omeprazole 20mg</div>
+                    <p class="product-description">For acid reflux, heartburn, and GERD</p>
+                    <div class="product-meta">
+                        <span class="product-manufacturer">Square Pharma</span>
+                        <span class="product-stock">In Stock</span>
+                    </div>
+                    <div class="product-price">৳90</div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add
+                        </button>
+                        <button class="btn-view-details">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="asthma">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medicine">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Montair 10</h3>
+                    <div class="product-generic">Montelukast 10mg</div>
+                    <p class="product-description">For allergic rhinitis and asthma prevention</p>
+                    <div class="product-meta">
+                        <span class="product-manufacturer">Square Pharma</span>
+                        <span class="product-stock">In Stock</span>
+                    </div>
+                    <div class="product-price">৳110</div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add
+                        </button>
+                        <button class="btn-view-details">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card" data-category="antibiotic">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medicine">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Ceevit</h3>
+                    <div class="product-generic">Vitamin C 500mg</div>
+                    <p class="product-description">Vitamin supplement for immunity boost</p>
+                    <div class="product-meta">
+                        <span class="product-manufacturer">Opsonin Pharma</span>
+                        <span class="product-stock">In Stock</span>
+                    </div>
+                    <div class="product-price">৳12</div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add
+                        </button>
+                        <button class="btn-view-details">Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <button><i class="fas fa-chevron-left"></i></button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+        <button><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Smrity Pharmacy</div>
+            <p>Your trusted partner for quality medicines and healthcare solutions</p>
+            
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Smrity Pharmacy. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart -->
+    <div class="shopping-cart-container">
+        <div class="cart-header">
+            <h3 class="cart-title"><i class="fas fa-shopping-cart"></i> Shopping List</h3>
+            <button class="cart-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">Your shopping list is empty</div>
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">৳0</span>
+        </div>
+        <div class="cart-actions">
+            <button class="btn-cart btn-cancel"><i class="fas fa-times"></i> Cancel</button>
+            <button class="btn-cart btn-send"><i class="fas fa-paper-plane"></i> Send Order</button>
+        </div>
+    </div>
+
+    <!-- Cart Icon -->
+    <div class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div class="order-confirmation">
+        <div class="confirmation-content">
+            <h3><i class="fas fa-check-circle"></i> Order Confirmation</h3>
+            <p>Your order has been successfully sent to Smrity Pharmacy!</p>
+            <p>We will contact you shortly to confirm your order details.</p>
+            <div class="confirmation-actions">
+                <button class="btn-cart btn-cancel" id="closeConfirmation">Continue Shopping</button>
+                <button class="btn-cart btn-send" id="viewOrders">View Orders</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Functionality
+        const darkModeToggle = document.getElementById('darkModeSwitch');
+        const tryDarkMode = document.getElementById('tryDarkMode');
+        const body = document.body;
+        
+        // Check for saved preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+        
+        // Toggle Dark Mode
+        darkModeToggle.addEventListener('change', () => {
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+        });
+        
+        // Try Dark Mode button
+        tryDarkMode.addEventListener('click', () => {
+            body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+            localStorage.setItem('darkMode', 'enabled');
+        });
+        
+        // Category Selection
+        const categoryItems = document.querySelectorAll('.category-item');
+        categoryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                categoryItems.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Filter products by category
+                const category = this.getAttribute('data-category');
+                filterProductsByCategory(category);
+            });
+        });
+        
+        // Shopping Cart Functionality
+        const cartIcon = document.querySelector('.cart-icon');
+        const cartContainer = document.querySelector('.shopping-cart-container');
+        const cartClose = document.querySelector('.cart-close');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCount = document.querySelector('.cart-count');
+        const cancelBtn = document.querySelector('.btn-cancel');
+        const sendBtn = document.querySelector('.btn-send');
+        const confirmationModal = document.querySelector('.order-confirmation');
+        const closeConfirmation = document.getElementById('closeConfirmation');
+        const viewOrdersBtn = document.getElementById('viewOrders');
+        
+        let shoppingCart = [];
+        
+        // Toggle cart visibility
+        cartIcon.addEventListener('click', () => {
+            cartContainer.classList.toggle('active');
+        });
+        
+        cartClose.addEventListener('click', () => {
+            cartContainer.classList.remove('active');
+        });
+        
+        // Add to cart functionality
+        document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-name').textContent;
+                const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.replace('৳', ''));
+                const genericName = productCard.querySelector('.product-generic').textContent;
+                
+                // Add to cart
+                const existingItem = shoppingCart.find(item => item.name === productName);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    shoppingCart.push({
+                        name: productName,
+                        generic: genericName,
+                        price: productPrice,
+                        quantity: 1
+                    });
+                }
+                
+                // Update UI
+                updateCartUI();
+                
+                // Show cart
+                cartContainer.classList.add('active');
+                
+                // Button feedback
+                const originalHTML = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> Added';
+                this.style.backgroundColor = '#4CAF50';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                    this.style.backgroundColor = '';
+                }, 2000);
+            });
+        });
+        
+        // Update cart UI
+        function updateCartUI() {
+            // Update cart count
+            const totalItems = shoppingCart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update list items
+            cartItems.innerHTML = '';
+            
+            if (shoppingCart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">Your shopping list is empty</div>';
+                cartTotal.textContent = '৳0';
+                return;
+            }
+            
+            let totalPrice = 0;
+            
+            shoppingCart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalPrice += itemTotal;
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">৳${item.price} x ${item.quantity}</div>
+                    </div>
+                    <button class="remove-item" data-name="${item.name}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                
+                cartItems.appendChild(itemElement);
+            });
+            
+            // Add remove functionality
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemName = this.getAttribute('data-name');
+                    shoppingCart = shoppingCart.filter(item => item.name !== itemName);
+                    updateCartUI();
+                });
+            });
+            
+            // Update total
+            cartTotal.textContent = `৳${totalPrice.toFixed(2)}`;
+        }
+        
+        // Cancel order
+        cancelBtn.addEventListener('click', () => {
+            shoppingCart = [];
+            updateCartUI();
+            cartContainer.classList.remove('active');
+        });
+        
+        // Send order
+        sendBtn.addEventListener('click', () => {
+            if (shoppingCart.length === 0) {
+                alert('Your shopping list is empty');
+                return;
+            }
+            
+            // Save order to localStorage
+            const orders = JSON.parse(localStorage.getItem('pharmacy_orders')) || [];
+            const newOrder = {
+                id: Date.now(),
+                items: [...shoppingCart],
+                total: parseFloat(cartTotal.textContent.replace('৳', '')),
+                date: new Date().toISOString(),
+                status: 'Pending'
+            };
+            
+            orders.push(newOrder);
+            localStorage.setItem('pharmacy_orders', JSON.stringify(orders));
+            
+            // Reset cart
+            shoppingCart = [];
+            updateCartUI();
+            
+            // Show confirmation
+            confirmationModal.classList.add('active');
+            cartContainer.classList.remove('active');
+        });
+        
+        // Close confirmation modal
+        closeConfirmation.addEventListener('click', () => {
+            confirmationModal.classList.remove('active');
+        });
+        
+        // View orders
+        viewOrdersBtn.addEventListener('click', () => {
+            alert('In a real implementation, this would take you to the orders page');
+            confirmationModal.classList.remove('active');
+        });
+        
+        // Initialize cart
+        updateCartUI();
+        
+        // View Details Functionality
+        const viewDetailsButtons = document.querySelectorAll('.btn-view-details');
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-name').textContent;
+                
+                // In a real app, you would navigate to product detail page
+                alert(`Viewing details for: ${productName}`);
+            });
+        });
+        
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const productsGrid = document.getElementById('productsGrid');
+        const productCards = document.querySelectorAll('.product-card');
+        const resultsCount = document.getElementById('resultsCount');
+        
+        // Function to filter products
+        function filterProducts(searchTerm) {
+            searchTerm = searchTerm.toLowerCase().trim();
+            let visibleCount = 0;
+            
+            productCards.forEach(card => {
+                const productName = card.querySelector('.product-name').textContent.toLowerCase();
+                const genericName = card.querySelector('.product-generic').textContent.toLowerCase();
+                const description = card.querySelector('.product-description').textContent.toLowerCase();
+                
+                // Check if the product matches the search term
+                const isVisible = productName.includes(searchTerm) || 
+                                  genericName.includes(searchTerm) || 
+                                  description.includes(searchTerm);
+                
+                card.style.display = isVisible ? 'flex' : 'none';
+                if (isVisible) visibleCount++;
+            });
+            
+            // Update results count
+            resultsCount.textContent = visibleCount === 0 ? 
+                'No products found' : 
+                `Showing ${visibleCount} product${visibleCount === 1 ? '' : 's'}`;
+            
+            // Show no results message if needed
+            showNoResultsMessage(visibleCount === 0);
+        }
+        
+        // Function to filter by category
+        function filterProductsByCategory(category) {
+            let visibleCount = 0;
+            
+            productCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                const isVisible = category === 'all' || cardCategory === category;
+                
+                card.style.display = isVisible ? 'flex' : 'none';
+                if (isVisible) visibleCount++;
+            });
+            
+            // Update results count
+            resultsCount.textContent = visibleCount === 0 ? 
+                'No products in this category' : 
+                `Showing ${visibleCount} product${visibleCount === 1 ? '' : 's'}`;
+            
+            // Show no results message if needed
+            showNoResultsMessage(visibleCount === 0);
+        }
+        
+        // Function to show/hide no results message
+        function showNoResultsMessage(show) {
+            let noResults = document.querySelector('.no-results');
+            
+            if (show && !noResults) {
+                noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.innerHTML = `
+                    <i class="fas fa-search"></i>
+                    <h3>No Products Found</h3>
+                    <p>Try different keywords or browse our categories</p>
+                `;
+                productsGrid.appendChild(noResults);
+            } else if (!show && noResults) {
+                noResults.remove();
+            }
+        }
+        
+        // Event listeners for search
+        searchButton.addEventListener('click', function() {
+            filterProducts(searchInput.value);
+        });
+        
+        searchInput.addEventListener('input', function() {
+            filterProducts(this.value);
+        });
+        
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                filterProducts(this.value);
+            }
+        });
+    </script>
+</body>
+</html>
